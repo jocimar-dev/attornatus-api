@@ -1,7 +1,9 @@
 package com.attornatus.cadastro.controller;
 
-import com.attornatus.cadastro.entities.PessoaEntity;
+import com.attornatus.cadastro.model.Pessoa;
 import com.attornatus.cadastro.service.PessoaService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,32 +12,33 @@ import java.util.List;
 @RequestMapping("/pessoa")
 public class PessoaController {
 
+    @PersistenceContext
+    private EntityManager manager;
     private final PessoaService service;
 
     public PessoaController(PessoaService service) {
         this.service = service;
     }
 
-    @PostMapping("/cria")
-    public PessoaEntity criar(@RequestBody PessoaEntity pessoa) {
+    @PostMapping
+    public Pessoa criar(@RequestBody Pessoa pessoa) {
         return service.criar(pessoa);
     }
 
-    @PutMapping("/salva")
-    public PessoaEntity salvar(@RequestBody PessoaEntity pessoa) {
+    @PutMapping
+    public Pessoa salvar(@RequestBody Pessoa pessoa) {
         return service.atualizar(pessoa);
     }
 
     @GetMapping("/{id}")
-    public PessoaEntity buscar(@PathVariable Integer id) {
+    public Pessoa buscar(@PathVariable Long id) {
         return service.consultar(id);
     }
 
     @GetMapping
-    public List<PessoaEntity> listar() {
+    public List<Pessoa> listar() {
         return service.listarPessoa();
     }
-
 
 }
 

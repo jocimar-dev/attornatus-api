@@ -1,30 +1,33 @@
 package com.attornatus.cadastro.service;
 
-import com.attornatus.cadastro.entities.PessoaEntity;
+import com.attornatus.cadastro.model.Pessoa;
 import com.attornatus.cadastro.repository.PessoaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class PessoaService {
-    @Autowired
-    private PessoaRepository repository;
 
-    public PessoaEntity criar(PessoaEntity pessoa) {
+    private final PessoaRepository repository;
+
+    public PessoaService(PessoaRepository repository) {
+        this.repository = repository;
+    }
+
+    public Pessoa criar(Pessoa pessoa) {
         return repository.save(pessoa);
     }
 
-    public PessoaEntity atualizar(PessoaEntity pessoa) {
+    public Pessoa atualizar(Pessoa pessoa) {
         return repository.save(pessoa);
     }
 
-    public PessoaEntity consultar(Integer id) {
+    public Pessoa consultar(Long id) {
         return repository.findById(id).orElse(null);
     }
 
-    public List<PessoaEntity> listarPessoa() {
+    public List<Pessoa> listarPessoa() {
         return repository.findAll();
     }
 }

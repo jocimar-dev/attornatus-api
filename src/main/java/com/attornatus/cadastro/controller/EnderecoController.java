@@ -1,37 +1,39 @@
 package com.attornatus.cadastro.controller;
 
-import com.attornatus.cadastro.entities.EnderecoEntity;
-import com.attornatus.cadastro.entities.PessoaEntity;
+import com.attornatus.cadastro.model.Endereco;
+import com.attornatus.cadastro.model.Pessoa;
 import com.attornatus.cadastro.service.EnderecoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/pessoa/{pessoa_id}")
+@RequestMapping("/pessoa/{pessoaId}")
 public class EnderecoController  {
 
-    @Autowired
-    private EnderecoService service;
+    private final EnderecoService service;
 
-    @PostMapping("/cria_endereco")
-    public EnderecoEntity criar(@PathVariable Integer pessoaId,
-                                 @RequestBody EnderecoEntity endereco) {
-        var pessoa = new PessoaEntity();
+    public EnderecoController(EnderecoService service) {
+        this.service = service;
+    }
+
+    @PostMapping
+    public Endereco criar(@PathVariable Long pessoaId,
+                          @RequestBody Endereco endereco) {
+        var pessoa = new Pessoa();
         pessoa.setId(pessoaId);
         endereco.setPessoa(pessoa);
         return service.criar(endereco);
     }
 
-    @GetMapping("/busca_endereco")
-    public List<EnderecoEntity> listar(@PathVariable Integer pessoaId) {
+    @GetMapping
+    public List<Endereco> listar(@PathVariable Long pessoaId) {
         return service.listarEndereco(pessoaId);
     }
 
-    @PutMapping("/endereco_principal")
-    public void defineEnderecoPrincipal(@PathVariable Integer endereco) {
-        service.definirEnderecoPrincipal(endereco);
+    @PutMapping
+    public void enderecoPrincipal(@PathVariable Long pessoaId) {
+        service.definirEnderecoPrincipal(pessoaId);
     }
 
 }

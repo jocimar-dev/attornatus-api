@@ -1,14 +1,14 @@
-package com.attornatus.cadastro.entities;
+package com.attornatus.cadastro.model;
 
 import jakarta.persistence.*;
 
-import static jakarta.persistence.GenerationType.UUID;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
-public class EnderecoEntity {
+public class Endereco {
 
     @Id
-    @GeneratedValue(strategy = UUID)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String logradouro;
     private String cep;
@@ -17,7 +17,7 @@ public class EnderecoEntity {
 
     @ManyToOne
     @JoinColumn(name = "pessoa_id")
-    private PessoaEntity pessoa;
+    private Pessoa pessoa;
 
     private boolean principal;
 
@@ -61,11 +61,11 @@ public class EnderecoEntity {
         this.cidade = cidade;
     }
 
-    public PessoaEntity getPessoa() {
+    public Pessoa getPessoa() {
         return pessoa;
     }
 
-    public void setPessoa(PessoaEntity pessoa) {
+    public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
 

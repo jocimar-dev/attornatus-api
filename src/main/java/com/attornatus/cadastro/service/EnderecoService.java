@@ -1,8 +1,7 @@
 package com.attornatus.cadastro.service;
 
-import com.attornatus.cadastro.entities.EnderecoEntity;
+import com.attornatus.cadastro.model.Endereco;
 import com.attornatus.cadastro.repository.EnderecoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,19 +9,22 @@ import java.util.Optional;
 
 @Service
 public class EnderecoService {
-    @Autowired
-    private EnderecoRepository repository;
+    private final EnderecoRepository repository;
 
-    public EnderecoEntity criar(EnderecoEntity endereco) {
+    public EnderecoService(EnderecoRepository repository) {
+        this.repository = repository;
+    }
+
+    public Endereco criar(Endereco endereco) {
         return repository.save(endereco);
     }
 
-    public List<EnderecoEntity> listarEndereco(Integer id) {
+    public List<Endereco> listarEndereco(Long id) {
         return repository.findByPessoaId(id);
     }
 
-    public void definirEnderecoPrincipal(Integer enderecoId) {
-        Optional<EnderecoEntity> endereco = repository.findById(enderecoId);
+    public void definirEnderecoPrincipal(Long enderecoId) {
+        Optional<Endereco> endereco = repository.findById(enderecoId);
         if (endereco.isPresent()) {
             var enderecoPrincipal = endereco.get();
             var enderecosList = repository.findByPessoaId(enderecoPrincipal.getPessoa().getId());
