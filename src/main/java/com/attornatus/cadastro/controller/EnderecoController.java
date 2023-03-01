@@ -32,7 +32,7 @@ public class EnderecoController  {
     }
 
     @PutMapping
-    public void enderecoPrincipal(@PathVariable Long pessoaId) {
+    public void enderecoPrincipal(@PathVariable String pessoaId) {
         service.definirEnderecoPrincipal(pessoaId);
     }
 

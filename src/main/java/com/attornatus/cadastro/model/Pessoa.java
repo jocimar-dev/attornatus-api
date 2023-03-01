@@ -18,10 +18,11 @@ public class Pessoa {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDate dataNascimento;
     @OneToMany(mappedBy = "endereco_id", cascade = CascadeType.ALL)
+
+    //Verificar
     private List<Endereco> enderecos = new ArrayList<>();
 
-
-
+    public Pessoa() {  }
     public Long getId() {
         return id;
     }
@@ -45,4 +46,5 @@ public class Pessoa {
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
+
 }
